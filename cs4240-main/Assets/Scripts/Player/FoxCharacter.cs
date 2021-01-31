@@ -46,9 +46,15 @@ public class FoxCharacter : Character
     [SerializeField]
     private LayerMask m_GroundLayerMask;
 
+    [SerializeField]
+    private AudioClip m_JumpAudioClip;
+
+    [SerializeField]
+    private AudioSource m_AudioSource;
 
     protected override void OnAwake() 
     {
+        m_AudioSource = GetComponent<AudioSource>();
         m_SqMaxMoveSpeed = m_MaxMoveSpeed * m_MaxMoveSpeed;
     }
 
@@ -180,6 +186,8 @@ public class FoxCharacter : Character
         m_Rigidbody.AddForce(new Vector3(0.0f, m_JumpForce, 0.0f), ForceMode.Impulse);
         m_Animator.SetTrigger("Jump");
         ++m_JumpCount;
+
+        m_AudioSource.PlayOneShot(m_JumpAudioClip);
     }
 
     private void OnCollisionEnter(Collision collision)
