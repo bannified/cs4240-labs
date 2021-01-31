@@ -1,0 +1,45 @@
+Assignment 1
+
+Part 1:
+
+You need to build a complete scene with Terrain tools. It needs to contain some different objects to form a meaningful and complex scene. You can also download some assets from the Unity Store, but you should not use the default scene in the package you download.
+
+Part 2:
+
+In your scene, there should be some objects that can be controlled by player to interact with some other objects. There also should be some objects that can move automatically. These objects should be meaningful in your scene. Do note that your player doesn't need to be a ball. Get creative!
+
+---------------------
+
+Idea 1:
+
+Setting:
+Mountainous Jungle/Grassland (Terrain + foliage usage) with house in the middle (interactions). 
+Fog makes the house slightly mysterious.
+Village in a Valley
+
+Player: 
+
+Player is a layperson that somehow ended up in this place.
+
+Player is a first-person controller. Basic Footsteps enabled?
+Could be third person also.
+
+Scenario:
+
+1. Player spawns by a vehicle (presumably used that vehicle). A gate of sorts blocks the player from going backwards
+2. A footpath guides the player from the spawn point to the house.
+3. The footpath gets intersected by a ravine (river at the bottom of it, use water!), and a retractable (or deactivated) wooden (?) bridge allows the player to traverse across the ravine over to the house on the other side.
+4. As the player approaches the bridge, a flock of birds (black?) fly across player's path. (Optional, or can be subbed for another scripted event)
+5. The player interacts with a lever to put the bridge down,
+
+Idea 2: 
+
+Parkour-ish kind of a game? Platformer game
+
+Short level.
+
+Pickups: Double Jump, Speed Boost
+
+Doing Idea 2 because mechanically it fits the rubrics more (especially pickups and walls)
+
+The landscaping stuff will simply act as a backdrop of sorts.
