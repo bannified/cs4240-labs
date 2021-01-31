@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class FoxCharacter : Character
 {
-    float m_JumpForce;
+    [SerializeField]
+    private float m_JumpForce = 10.0f;
+
+    [SerializeField]
+    private uint m_JumpCount = 0;
+
+    [SerializeField]
+    private uint m_MaxJumpCount = 1;
 
     [SerializeField]
     float m_MaxMoveSpeed = 20.0f;
@@ -30,6 +37,16 @@ public class FoxCharacter : Character
     [SerializeField]
     private float m_CameraTurnRate = 3.0f;
 
+    [SerializeField]
+    private bool m_IsFalling = false;
+
+    [SerializeField]
+    private bool m_IsInAir = false;
+
+    [SerializeField]
+    private LayerMask m_GroundLayerMask;
+
+
     protected override void OnAwake() 
     {
         m_SqMaxMoveSpeed = m_MaxMoveSpeed * m_MaxMoveSpeed;
@@ -44,7 +61,9 @@ public class FoxCharacter : Character
     // Update is called once per frame
     protected override void OnUpdate()
     {
-        
+        UpdateIsInAir();
+
+        UpdateIsFalling();
     }
 
     private void FixedUpdate()
@@ -53,6 +72,17 @@ public class FoxCharacter : Character
 
         Move();
         UpdateMoveRotation();
+    }
+
+    private void UpdateIsInAir()
+    {
+        RaycastHit hitResult;
+        m_IsInAir = !Physics.Raycast(transform.position, Vector3.down, out hitResult, 1.0f, m_GroundLayerMask);
+    }
+
+    private void UpdateIsFalling()
+    {
+        m_IsFalling = m_IsInAir && m_Rigidbody.velocity.y < 0.0f;
     }
 
     private void Move()
@@ -122,7 +152,7 @@ public class FoxCharacter : Character
 
     protected override void OnJumpStart()
     {
-
+        Jump();
     }
 
     protected override void OnJumpEnd()
@@ -138,5 +168,26 @@ public class FoxCharacter : Character
     protected override void OnUpdateAnimator()
     {
 
+    }
+
+    void Jump()
+    {
+        if (m_JumpCount >= m_MaxJumpCount)
+        {
+            return;
+        }
+
+        m_Rigidbody.AddForce(new Vector3(0.0f, m_JumpForce, 0.0f), ForceMode.Impulse);
+        m_Animator.SetTrigger("Jump");
+        ++m_JumpCount;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (((1 << collision.gameObject.layer) & m_GroundLayerMask.value) > 0)
+        {
+            m_JumpCount = 0;
+            m_Animator.SetTrigger("HitGround");
+        }
     }
 }
