@@ -183,7 +183,7 @@ public class FoxCharacter : Character
             return;
         }
 
-        m_Rigidbody.AddForce(new Vector3(0.0f, m_JumpForce, 0.0f), ForceMode.Impulse);
+        m_Rigidbody.AddForce(new Vector3(0.0f, m_JumpForce, 0.0f), ForceMode.VelocityChange);
         m_Animator.SetTrigger("Jump");
         ++m_JumpCount;
 
@@ -197,5 +197,10 @@ public class FoxCharacter : Character
             m_JumpCount = 0;
             m_Animator.SetTrigger("HitGround");
         }
+    }
+
+    public void SetMaxJumpCount(uint maxJumpCount)
+    {
+        m_MaxJumpCount = maxJumpCount;
     }
 }
